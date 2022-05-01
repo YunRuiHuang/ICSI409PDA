@@ -1,10 +1,26 @@
 import java.util.ArrayList;
 
+/**
+ * @Author Yunrui Huang
+ * the State machine of this PDA
+ */
 public class StateMachine {
+    /**
+     * the constructor of StateMachine class
+     */
     public StateMachine(){
 
     }
 
+    /**
+     * get the next state of this state with input
+     * @param thisState
+     * the state right now
+     * @param input
+     * the input char
+     * @return
+     * the next state after accept the char, it would be multiple state
+     */
     public ArrayList<State> nextState(State thisState, String input){
         int state = thisState.getStates();
         ArrayList<State> stateList = new ArrayList<>();

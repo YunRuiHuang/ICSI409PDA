@@ -1,12 +1,19 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @Author Yunrui Huang
+ * this class use to precess the input string check if accept by PDA
+ */
 public class PDAProcess {
 
     private StateMachine stateMachine;
     private ArrayList<State> stateArrayList;
     private ArrayList<State> nextStateArrayList;
 
+    /**
+     * the constructor of PDAProcess
+     */
     public PDAProcess(){
 
         this.stateArrayList = new ArrayList<>();
@@ -31,12 +38,18 @@ public class PDAProcess {
 
     }
 
+    /**
+     * the PDA process of the input String
+     * @param input
+     * the input string, which split to array as char
+     */
     private void PDA(String[] input){
         State newState = new State();
         stateArrayList = this.stateMachine.nextState(newState,"E");
         for (int i = 0; i < input.length; i++) {
             ArrayList<State> newStateList = new ArrayList<>();
 
+            System.out.println("\nLoop : " + i);
             for (int j = 0; j < stateArrayList.size(); j++) {
                 newStateList = stateMachine.nextState(stateArrayList.get(j),"E");
                 if(!(newStateList == null)){
@@ -51,7 +64,7 @@ public class PDAProcess {
             if(!(nextStateArrayList == null || nextStateArrayList.isEmpty())){
                 for (int j = 0; j < nextStateArrayList.size(); j++) {
                     stateArrayList.add(new State().copy(nextStateArrayList.get(j)));
-//                    System.out.print("\nState:" + stateArrayList.get(j).getStates() + stateArrayList.get(j).getStack().toString());
+                    System.out.print("\nState:" + stateArrayList.get(j).getStates() + stateArrayList.get(j).getStack().toString());
                 }
                 nextStateArrayList.clear();
             }
@@ -71,7 +84,7 @@ public class PDAProcess {
             if(!(nextStateArrayList == null || nextStateArrayList.isEmpty())){
                 for (int j = 0; j < nextStateArrayList.size(); j++) {
                     stateArrayList.add(new State().copy(nextStateArrayList.get(j)));
-//                    System.out.print("\nState:" + stateArrayList.get(j).getStates() + stateArrayList.get(j).getStack().toString());
+                    System.out.print("\nState:" + stateArrayList.get(j).getStates() + stateArrayList.get(j).getStack().toString());
                 }
                 nextStateArrayList.clear();
             }
@@ -90,26 +103,27 @@ public class PDAProcess {
                 }
 
             }
+            System.out.println("\nThe End Loop:");
             stateArrayList.clear();
             if(!(nextStateArrayList == null || nextStateArrayList.isEmpty())){
                 for (int j = 0; j < nextStateArrayList.size(); j++) {
                     stateArrayList.add(new State().copy(nextStateArrayList.get(j)));
-//                    System.out.print(stateArrayList.get(j).getStates() + stateArrayList.get(j).getStack().toString());
+                    System.out.println("State :" + stateArrayList.get(j).getStates() + stateArrayList.get(j).getStack().toString());
                 }
                 nextStateArrayList.clear();
             }
         }
 
         if(stateArrayList.isEmpty()){
-            System.out.println("this word not accept");
+            System.out.println("\nthis word not accept");
         }else{
             for (int i = 0; i < stateArrayList.size(); i++) {
                 if(stateArrayList.get(i).getStates() == 3){
-                    System.out.println("this word accept");
+                    System.out.println("\nthis word accept");
                     return;
                 }
             }
-            System.out.println("this word not accept");
+            System.out.println("\nthis word not accept");
         }
 
     }
